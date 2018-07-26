@@ -39,10 +39,9 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Set<UserDto> findUsersByBasicInformation(String string) {
 		Set<UserEntiti> lista = new HashSet<>();
-		// lista.addAll(userDao.getUserByUserName(string));
-		// lista.addAll(userDao.getUserByUserEmail(string));
-
 		lista = userDao.getUserByUserName(string);
+
+		lista.addAll(userDao.getUserByUserEmail(string));
 
 		return userMapper.map2To(userDao.getUserByUserName(string));
 	}

@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
 
+import com.capgemini.jstk.boardGame.dto.AvalibleTimeDto;
+import com.capgemini.jstk.boardGame.dto.GameDto;
 import com.capgemini.jstk.boardGame.dto.UserDto;
 import com.capgemini.jstk.boardGame.model.AvalibleTimeEntiti;
 import com.capgemini.jstk.boardGame.model.CommentEntiti;
@@ -28,10 +30,26 @@ public class MockDataInitializer {
 	AvalibleTimeEntiti time5 = new AvalibleTimeEntiti(Instant.parse("2018-08-10T10:15:30.00Z"),
 			Instant.parse("2018-08-12T10:15:30.00Z"));
 
+	AvalibleTimeDto timeDto1 = new AvalibleTimeDto(Instant.parse("2018-08-25T10:15:30.00Z"),
+			Instant.parse("2018-08-26T10:15:30.00Z"));
+	AvalibleTimeDto timeDto2 = new AvalibleTimeDto(Instant.parse("2018-08-26T10:15:30.00Z"),
+			Instant.parse("2018-08-26T15:15:30.00Z"));
+	AvalibleTimeDto timeDto3 = new AvalibleTimeDto(Instant.parse("2018-08-10T10:15:30.00Z"),
+			Instant.parse("2018-08-10T14:15:30.00Z"));
+	AvalibleTimeDto timeDto4 = new AvalibleTimeDto(Instant.parse("2018-08-05T10:15:30.00Z"),
+			Instant.parse("2018-08-05T10:15:30.00Z"));
+	AvalibleTimeDto timeDto5 = new AvalibleTimeDto(Instant.parse("2018-08-10T10:15:30.00Z"),
+			Instant.parse("2018-08-12T10:15:30.00Z"));
+
 	public GameEntiti game1 = new GameEntiti("Wyscig szczurow", 2, 6);
 	public GameEntiti game2 = new GameEntiti("Szachy", 2, 2);
 	public GameEntiti game3 = new GameEntiti("Magic", 2, 2);
 	public GameEntiti game4 = new GameEntiti("Super Ściemniacz", 2, 8);
+
+	public GameDto gameDto1 = new GameDto("Wyscig szczurow", 2, 6);
+	public GameDto gameDto2 = new GameDto("Warcaby", 2, 2);
+	public GameDto gameDto3 = new GameDto("dddddd", 2, 2);
+	public GameDto gameDto4 = new GameDto("Solą do oka", 2, 8);
 
 	public UserEntiti user1 = new UserEntiti();
 	public UserEntiti user2 = new UserEntiti();
@@ -93,8 +111,6 @@ public class MockDataInitializer {
 		user5.getAvalible().add(time2);
 		user5.addGame(game2);
 		user5.addGame(game4);
-
-		userList.add(user5);
 
 		user6Dto.setUserName("Mariusz");
 		user6Dto.setEmail("mariusz@mati.pl");
