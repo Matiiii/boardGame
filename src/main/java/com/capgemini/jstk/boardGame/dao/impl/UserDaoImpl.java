@@ -40,7 +40,9 @@ public class UserDaoImpl implements UserDaoInterface {
 	@Override
 	public Set<UserEntiti> getUsersByGame(GameEntiti game) {
 
-		return userList.stream().filter(x -> x.getOwnGames().contains(game)).collect(Collectors.toSet());
+		return userList.stream()
+				.filter(x -> x.getOwnGames().stream().anyMatch(y -> y.getGameName().equals(game.getGameName())))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
@@ -54,10 +56,13 @@ public class UserDaoImpl implements UserDaoInterface {
 
 		return userList.stream()
 				.filter(x -> x.getAvalible().stream()
-						.anyMatch(y -> (y.getTimeStart().isAfter(time.getTimeStart())
+						.anyMatch(y -> ((y.getTimeStart().isAfter(time.getTimeStart())
 								&& y.getTimeStart().isBefore(time.getTimeStop()))
 								|| (y.getTimeStop().isAfter(time.getTimeStart())
-										&& y.getTimeStop().isBefore(time.getTimeStop()))))
+										&& y.getTimeStop().isBefore(time.getTimeStop())))
+				|| ((time.getTimeStop().isAfter(y.getTimeStart()) && time.getTimeStop().isBefore(y.getTimeStop()))
+						|| (time.getTimeStart().isAfter(y.getTimeStart())
+								&& time.getTimeStart().isBefore(y.getTimeStop())))))
 				.collect(Collectors.toSet());
 
 	}
@@ -72,6 +77,12 @@ public class UserDaoImpl implements UserDaoInterface {
 	public void addGameToUser(UserEntiti user, GameEntiti game) {
 		getUserByUserName(user.getUserName()).forEach(x -> x.getOwnGames().add(game));
 
+	}
+
+	@Override
+	public Set<UserEntiti> getUserByUserEmail(String email) {
+
+		return userList.stream().filter(x -> x.getEmail().equals(email)).collect(Collectors.toSet());
 	}
 
 }

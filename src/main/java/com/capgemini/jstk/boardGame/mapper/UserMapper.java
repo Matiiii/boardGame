@@ -1,6 +1,6 @@
 package com.capgemini.jstk.boardGame.mapper;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -27,12 +27,12 @@ public class UserMapper {
 		return null;
 	}
 
-	public List<UserDto> map2To(List<UserEntiti> userEntiti) {
-		return userEntiti.stream().map(new UserMapper()::map).collect(Collectors.toList());
+	public Set<UserDto> map2To(Set<UserEntiti> userEntiti) {
+		return userEntiti.stream().map(new UserMapper()::map).collect(Collectors.toSet());
 	}
 
-	public List<UserEntiti> map2Entity(List<UserDto> userDto) {
-		return userDto.stream().map(new UserMapper()::map).collect(Collectors.toList());
+	public Set<UserEntiti> map2Entity(Set<UserDto> userDto) {
+		return userDto.stream().map(new UserMapper()::map).collect(Collectors.toSet());
 	}
 
 }

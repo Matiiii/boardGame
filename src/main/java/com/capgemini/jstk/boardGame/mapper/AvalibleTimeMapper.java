@@ -1,6 +1,6 @@
 package com.capgemini.jstk.boardGame.mapper;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -25,12 +25,12 @@ public class AvalibleTimeMapper {
 		return null;
 	}
 
-	public List<AvalibleTimeDto> map2To(List<AvalibleTimeEntiti> avalibleTimeEntiti) {
-		return avalibleTimeEntiti.stream().map(new AvalibleTimeMapper()::map).collect(Collectors.toList());
+	public Set<AvalibleTimeDto> map2To(Set<AvalibleTimeEntiti> avalibleTimeEntiti) {
+		return avalibleTimeEntiti.stream().map(new AvalibleTimeMapper()::map).collect(Collectors.toSet());
 	}
 
-	public List<AvalibleTimeEntiti> map2Entity(List<AvalibleTimeDto> avalibleTimeDto) {
-		return avalibleTimeDto.stream().map(new AvalibleTimeMapper()::map).collect(Collectors.toList());
+	public Set<AvalibleTimeEntiti> map2Entity(Set<AvalibleTimeDto> avalibleTimeDto) {
+		return avalibleTimeDto.stream().map(new AvalibleTimeMapper()::map).collect(Collectors.toSet());
 	}
 
 }

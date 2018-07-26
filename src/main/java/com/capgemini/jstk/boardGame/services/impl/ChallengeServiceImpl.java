@@ -94,7 +94,7 @@ public class ChallengeServiceImpl implements ChallengeServiceInterface {
 	@Override
 	public Set<ChallengeDto> findAllAcceptedChallangesByUser(UserDto user) {
 
-		return null;
+		return challengeMaper.map2To(challengeDao.findAcceptedChallengesByUser(userMapper.map(user)));
 	}
 
 }

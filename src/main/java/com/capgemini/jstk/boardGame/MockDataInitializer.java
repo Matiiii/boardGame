@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
 
+import com.capgemini.jstk.boardGame.dto.UserDto;
 import com.capgemini.jstk.boardGame.model.AvalibleTimeEntiti;
 import com.capgemini.jstk.boardGame.model.CommentEntiti;
 import com.capgemini.jstk.boardGame.model.GameEntiti;
@@ -37,6 +38,12 @@ public class MockDataInitializer {
 	public UserEntiti user3 = new UserEntiti();
 	public UserEntiti user4 = new UserEntiti();
 	public UserEntiti user5 = new UserEntiti();
+
+	public UserDto user6Dto = new UserDto();
+	public UserDto user7Dto = new UserDto();
+	public UserDto user8Dto = new UserDto();
+	public UserDto user9Dto = new UserDto();
+	public UserDto user10Dto = new UserDto();
 
 	@PostConstruct
 	public List<UserEntiti> createMokksUsersList() {
@@ -88,6 +95,42 @@ public class MockDataInitializer {
 		user5.addGame(game4);
 
 		userList.add(user5);
+
+		user6Dto.setUserName("Mariusz");
+		user6Dto.setEmail("mariusz@mati.pl");
+		user6Dto.getAvalible().add(time1);
+		user6Dto.getAvalible().add(time2);
+		user6Dto.addGame(game1);
+		user6Dto.addGame(game2);
+		user6Dto.addGame(game3);
+
+		user7Dto.setUserName("Barabara");
+		user7Dto.setEmail("booblebody@onet.pl");
+		user7Dto.getAvalible().add(time2);
+		user7Dto.getAvalible().add(time4);
+		user7Dto.addGame(game3);
+		user7Dto.addGame(game2);
+		user7Dto.addGame(game4);
+
+		user8Dto.setUserName("samara");
+		user8Dto.setEmail("samara@gmail.com");
+		user8Dto.getAvalible().add(time2);
+		user8Dto.getAvalible().add(time5);
+		user8Dto.addGame(game3);
+
+		user9Dto.setUserName("Policja");
+		user9Dto.setEmail("chowamywszystkodopolaru@gmail.pl");
+		user9Dto.getAvalible().add(time2);
+		user9Dto.getAvalible().add(time4);
+		user9Dto.addGame(game3);
+		user9Dto.addGame(game2);
+		user9Dto.addGame(game4);
+
+		user10Dto.setUserName("Plastuś");
+		user10Dto.setEmail("paparapa@sympatia.pl");
+		user10Dto.getAvalible().add(time2);
+		user10Dto.addGame(game2);
+		user10Dto.addGame(game4);
 
 		return userList;
 

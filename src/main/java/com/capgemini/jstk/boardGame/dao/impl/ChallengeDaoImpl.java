@@ -81,4 +81,13 @@ public class ChallengeDaoImpl implements ChallengeDaoInterface {
 
 	}
 
+	@Override
+	public Set<ChallengeEntiti> findAcceptedChallengesByUser(UserEntiti user) {
+
+		return challangeHistory.stream()
+				.filter(x -> x.getUsers().stream().anyMatch(y -> y.getUserName().equals(user.getUserName()))
+						&& x.getConfirmMap().get(user).isActeptation() == true)
+				.collect(Collectors.toSet());
+	}
+
 }

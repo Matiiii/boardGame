@@ -17,4 +17,6 @@ public interface UserDaoInterface {
 
 	void addGameToUser(UserEntiti user, GameEntiti game);
 
+	Set<UserEntiti> getUserByUserEmail(String email);
+
 }

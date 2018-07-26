@@ -23,4 +23,6 @@ public interface ChallengeDaoInterface {
 
 	void confirmChallenge(UserEntiti user, ChallengeEntiti challenge, AcceptationEntiti acceptation);
 
+	Set<ChallengeEntiti> findAcceptedChallengesByUser(UserEntiti user);
+
 }
