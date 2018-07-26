@@ -1,14 +1,16 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.dto;
 
 import java.time.Instant;
 
-public class CommentEntiti {
+import com.capgemini.jstk.boardGame.model.UserEntiti;
+
+public class CommentDto {
 
 	private Instant timeAdded;
 	private UserEntiti user;
 	private String comment;
 
-	public CommentEntiti(Instant timeAdded, UserEntiti user, String comment) {
+	public CommentDto(Instant timeAdded, UserEntiti user, String comment) {
 		this.timeAdded = timeAdded;
 		this.user = user;
 		this.comment = comment;

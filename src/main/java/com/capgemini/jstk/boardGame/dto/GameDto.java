@@ -1,16 +1,15 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.dto;
 
-public class GameEntiti {
-
+public class GameDto {
 	String gameName;
 
 	int minialPlayers;
 	int maximalPlayers;
 
-	public GameEntiti() {
+	public GameDto() {
 	}
 
-	public GameEntiti(String gameName, int minialPlayers, int maximalPlayers) {
+	public GameDto(String gameName, int minialPlayers, int maximalPlayers) {
 		this.gameName = gameName;
 		this.minialPlayers = minialPlayers;
 		this.maximalPlayers = maximalPlayers;

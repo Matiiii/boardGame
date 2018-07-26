@@ -1,11 +1,14 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.dto;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class UserEntiti {
+import com.capgemini.jstk.boardGame.model.AvalibleTimeEntiti;
+import com.capgemini.jstk.boardGame.model.GameEntiti;
+
+public class UserDto {
 
 	private String userName;
 	private String password;
@@ -23,11 +26,11 @@ public class UserEntiti {
 		avalible.add(time);
 	}
 
-	public UserEntiti() {
+	public UserDto() {
 		super();
 	}
 
-	public UserEntiti(String userName, String password, String email, Set<GameEntiti> ownGames,
+	public UserDto(String userName, String password, String email, Set<GameEntiti> ownGames,
 			Set<AvalibleTimeEntiti> avalible) {
 		super();
 		this.userName = userName;
