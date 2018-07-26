@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.capgemini.jstk.boardGame.dao.impl.ChallengeDaoImpl;
 import com.capgemini.jstk.boardGame.dto.AvalibleTimeDto;
 import com.capgemini.jstk.boardGame.mapper.GameMapper;
 import com.capgemini.jstk.boardGame.mapper.UserMapper;
@@ -33,6 +34,9 @@ public class IntegrationTests {
 
 	@Autowired
 	GameMapper gameMapper;
+
+	@Autowired
+	ChallengeDaoImpl challengeDaoImpl;
 
 	@Autowired
 	private ChallengeServiceInterface challengeService;
@@ -67,6 +71,22 @@ public class IntegrationTests {
 		assertEquals(2, userService.findUserSByAvalibleTime(
 				new AvalibleTimeDto(Instant.parse("2018-08-25T12:15:30.00Z"), Instant.parse("2018-08-25T15:15:30.00Z")))
 				.size());
+	}
+
+	@Test
+	public void schouldAddAcceptationToChallange() {
+		challengeService.confirmChalange(userMapper.map(mockdata.user1), mockdata.challengeDto1,
+				mockdata.acceptationDto1);
+
+		challengeService.confirmChalange(userMapper.map(mockdata.user2), mockdata.challengeDto1,
+				mockdata.acceptationDto1);
+
+		challengeService.confirmChalange(userMapper.map(mockdata.user3), mockdata.challengeDto1,
+				mockdata.acceptationDto1);
+
+		// assertEquals(1,
+		// challengeService.findAllAcceptedChallangesByUser(userMapper.map(mockdata.user3)).size());
+
 	}
 
 }

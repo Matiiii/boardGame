@@ -17,7 +17,7 @@ public class ChallengeDto {
 	private Instant timeCreated;
 	private UserEntiti initializeUser;
 	private Set<UserEntiti> users;
-	private Map<UserEntiti, AcceptationEntiti> confirmMap;
+	private Map<String, AcceptationEntiti> confirmMap;
 	private AvalibleTimeEntiti proposedtime;
 	private boolean isGamePlayed;
 	private Map<UserEntiti, Long> scoreMap;
@@ -30,7 +30,7 @@ public class ChallengeDto {
 	}
 
 	public ChallengeDto(Long id, Instant timeCreated, UserEntiti initializeUser, Set<UserEntiti> users,
-			Map<UserEntiti, AcceptationEntiti> confirmMap, AvalibleTimeEntiti proposedtime, boolean isGamePlayed,
+			Map<String, AcceptationEntiti> confirmMap, AvalibleTimeEntiti proposedtime, boolean isGamePlayed,
 			Map<UserEntiti, Long> scoreMap, String investMessage, String placeToPlay, GameEntiti game,
 			List<CommentEntiti> commentList) {
 		this.id = id;
@@ -79,11 +79,11 @@ public class ChallengeDto {
 		this.users = users;
 	}
 
-	public Map<UserEntiti, AcceptationEntiti> getConfirmMap() {
+	public Map<String, AcceptationEntiti> getConfirmMap() {
 		return confirmMap;
 	}
 
-	public void setConfirmMap(Map<UserEntiti, AcceptationEntiti> confirmMap) {
+	public void setConfirmMap(Map<String, AcceptationEntiti> confirmMap) {
 		this.confirmMap = confirmMap;
 	}
 
