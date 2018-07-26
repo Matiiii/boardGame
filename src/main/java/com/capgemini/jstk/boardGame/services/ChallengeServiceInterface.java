@@ -1,13 +1,11 @@
 package com.capgemini.jstk.boardGame.services;
 
-import java.util.List;
 import java.util.Set;
 
 import com.capgemini.jstk.boardGame.dto.AcceptationDto;
 import com.capgemini.jstk.boardGame.dto.ChallengeDto;
 import com.capgemini.jstk.boardGame.dto.CommentDto;
 import com.capgemini.jstk.boardGame.dto.UserDto;
-import com.capgemini.jstk.boardGame.model.UserEntiti;
 
 public interface ChallengeServiceInterface {
 
@@ -23,8 +21,10 @@ public interface ChallengeServiceInterface {
 
 	void confirmChalange(UserDto user, ChallengeDto challange, AcceptationDto acceptation);
 
-	List<ChallengeDto> findAllAcceptedChallangesByUser(UserEntiti user);
+	Set<ChallengeDto> findAllAcceptedChallangesByUser(UserDto user);
 
-	boolean isCanStartGame(ChallengeDto challange);
+	boolean isCanStartGame(ChallengeDto challenge);
+
+	void createNewChallenge(ChallengeDto challenge);
 
 }

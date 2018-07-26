@@ -15,4 +15,6 @@ public interface UserDaoInterface {
 
 	void addUser(UserEntiti user);
 
+	void addGameToUser(UserEntiti user, GameEntiti game);
+
 }

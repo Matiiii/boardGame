@@ -25,6 +25,7 @@ public class UserEntiti {
 
 	public UserEntiti() {
 		super();
+
 	}
 
 	public UserEntiti(String userName, String password, String email, Set<GameEntiti> ownGames,

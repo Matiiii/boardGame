@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDaoInterface {
 		addUser(mockDataInitializer.user3);
 		addUser(mockDataInitializer.user4);
 		addUser(mockDataInitializer.user5);
-
+		userList.forEach(x -> System.out.println(x.getUserName()));
 	}
 
 	private Set<UserEntiti> userList = new HashSet<>();
@@ -65,6 +65,12 @@ public class UserDaoImpl implements UserDaoInterface {
 	@Override
 	public void addUser(UserEntiti user) {
 		userList.add(user);
+
+	}
+
+	@Override
+	public void addGameToUser(UserEntiti user, GameEntiti game) {
+		getUserByUserName(user.getUserName()).forEach(x -> x.getOwnGames().add(game));
 
 	}
 

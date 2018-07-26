@@ -1,6 +1,6 @@
 package com.capgemini.jstk.boardGame.mapper;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -33,12 +33,12 @@ public class ChallengeMapper {
 		return null;
 	}
 
-	public List<ChallengeDto> map2To(List<ChallengeEntiti> challangeEntiti) {
-		return challangeEntiti.stream().map(new ChallengeMapper()::map).collect(Collectors.toList());
+	public Set<ChallengeDto> map2To(Set<ChallengeEntiti> challangeEntiti) {
+		return challangeEntiti.stream().map(new ChallengeMapper()::map).collect(Collectors.toSet());
 	}
 
-	public List<ChallengeEntiti> map2Entity(List<ChallengeDto> challangeDto) {
-		return challangeDto.stream().map(new ChallengeMapper()::map).collect(Collectors.toList());
+	public Set<ChallengeEntiti> map2Entity(Set<ChallengeDto> challangeDto) {
+		return challangeDto.stream().map(new ChallengeMapper()::map).collect(Collectors.toSet());
 	}
 
 }
