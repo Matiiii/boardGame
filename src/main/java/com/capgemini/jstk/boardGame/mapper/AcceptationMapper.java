@@ -5,32 +5,32 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.capgemini.jstk.boardGame.dto.AcceptationDto;
-import com.capgemini.jstk.boardGame.model.AcceptationEntiti;
+import com.capgemini.jstk.boardGame.repository.dto.AcceptationTo;
+import com.capgemini.jstk.boardGame.repository.entity.AcceptationEntity;
 
 @Component
 public class AcceptationMapper {
 
-	public AcceptationDto map(AcceptationEntiti acceptationEntiti) {
+	public AcceptationTo map(AcceptationEntity acceptationEntiti) {
 		if (acceptationEntiti != null) {
-			return new AcceptationDto(acceptationEntiti.isActeptation(), acceptationEntiti.getComment());
+			return new AcceptationTo(acceptationEntiti.isActeptation(), acceptationEntiti.getComment());
 		}
 		return null;
 	}
 
-	public AcceptationEntiti map(AcceptationDto acceptationDto) {
+	public AcceptationEntity map(AcceptationTo acceptationDto) {
 		if (acceptationDto != null) {
-			return new AcceptationEntiti(acceptationDto.isActeptation(), acceptationDto.getComment());
+			return new AcceptationEntity(acceptationDto.isActeptation(), acceptationDto.getComment());
 		}
 		return null;
 	}
 
-	public List<AcceptationDto> map2To(List<AcceptationEntiti> acceptationEntiti) {
-		return acceptationEntiti.stream().map(new AcceptationMapper()::map).collect(Collectors.toList());
+	public List<AcceptationTo> map2To(List<AcceptationEntity> acceptationEntiti) {
+		return acceptationEntiti.stream().map(this::map).collect(Collectors.toList());
 	}
 
-	public List<AcceptationEntiti> map2Entity(List<AcceptationDto> acceptationDto) {
-		return acceptationDto.stream().map(new AcceptationMapper()::map).collect(Collectors.toList());
+	public List<AcceptationEntity> map2Entity(List<AcceptationTo> acceptationDto) {
+		return acceptationDto.stream().map(this::map).collect(Collectors.toList());
 	}
 
 }

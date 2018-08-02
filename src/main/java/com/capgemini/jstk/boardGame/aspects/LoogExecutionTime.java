@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class Aspect1 {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Aspect1.class);
+public class LoogExecutionTime {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoogExecutionTime.class);
 
 	@Around("execution(* com.capgemini.jstk.boardGame.dao.*.*(..))")
 	public Object profile(ProceedingJoinPoint pjp) throws Throwable {

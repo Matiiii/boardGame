@@ -1,4 +1,4 @@
-package com.capgemini.jstk.boardGame.dao.impl;
+package com.capgemini.jstk.boardGame.repository.dao.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.boardGame.MockDataInitializer;
-import com.capgemini.jstk.boardGame.dao.GameDaoInterface;
-import com.capgemini.jstk.boardGame.model.GameEntiti;
+import com.capgemini.jstk.boardGame.repository.dao.GameDao;
+import com.capgemini.jstk.boardGame.repository.entity.GameEntity;
 
 @Repository
-public class GameDaoImpl implements GameDaoInterface {
+public class GameDaoImpl implements GameDao {
 
 	MockDataInitializer mockdata;
 
@@ -31,16 +31,16 @@ public class GameDaoImpl implements GameDaoInterface {
 
 	}
 
-	Set<GameEntiti> gameList = new HashSet<>();
+	Set<GameEntity> gameList = new HashSet<>();
 
 	@Override
-	public GameEntiti getGameByGameName(String name) {
+	public GameEntity getGameByGameName(String name) {
 
 		return null;
 	}
 
 	@Override
-	public void addGame(GameEntiti game) {
+	public void addGame(GameEntity game) {
 		gameList.add(game);
 
 	}

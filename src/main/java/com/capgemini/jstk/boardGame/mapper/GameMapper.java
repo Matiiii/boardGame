@@ -5,32 +5,32 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.capgemini.jstk.boardGame.dto.GameDto;
-import com.capgemini.jstk.boardGame.model.GameEntiti;
+import com.capgemini.jstk.boardGame.repository.dto.GameTo;
+import com.capgemini.jstk.boardGame.repository.entity.GameEntity;
 
 @Component
 public class GameMapper {
 
-	public GameDto map(GameEntiti gameEntiti) {
+	public GameTo map(GameEntity gameEntiti) {
 		if (gameEntiti != null) {
-			return new GameDto(gameEntiti.getGameName(), gameEntiti.getMinialPlayers(), gameEntiti.getMaximalPlayers());
+			return new GameTo(gameEntiti.getGameName(), gameEntiti.getMinialPlayers(), gameEntiti.getMaximalPlayers());
 		}
 		return null;
 	}
 
-	public GameEntiti map(GameDto gameDto) {
+	public GameEntity map(GameTo gameDto) {
 		if (gameDto != null) {
-			return new GameEntiti(gameDto.getGameName(), gameDto.getMinialPlayers(), gameDto.getMaximalPlayers());
+			return new GameEntity(gameDto.getGameName(), gameDto.getMinialPlayers(), gameDto.getMaximalPlayers());
 		}
 		return null;
 	}
 
-	public List<GameDto> map2To(List<GameEntiti> gameEntiti) {
-		return gameEntiti.stream().map(new GameMapper()::map).collect(Collectors.toList());
+	public List<GameTo> map2To(List<GameEntity> gameEntiti) {
+		return gameEntiti.stream().map(this::map).collect(Collectors.toList());
 	}
 
-	public List<GameEntiti> map2Entity(List<GameDto> gameDto) {
-		return gameDto.stream().map(new GameMapper()::map).collect(Collectors.toList());
+	public List<GameEntity> map2Entity(List<GameTo> gameDto) {
+		return gameDto.stream().map(this::map).collect(Collectors.toList());
 	}
 
 }

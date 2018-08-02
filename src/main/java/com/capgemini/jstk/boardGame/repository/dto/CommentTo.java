@@ -1,16 +1,16 @@
-package com.capgemini.jstk.boardGame.dto;
+package com.capgemini.jstk.boardGame.repository.dto;
 
 import java.time.Instant;
 
-import com.capgemini.jstk.boardGame.model.UserEntiti;
+import com.capgemini.jstk.boardGame.repository.entity.UserEntity;
 
-public class CommentDto {
+public class CommentTo {
 
 	private Instant timeAdded;
-	private UserEntiti user;
+	private UserEntity user;
 	private String comment;
 
-	public CommentDto(Instant timeAdded, UserEntiti user, String comment) {
+	public CommentTo(Instant timeAdded, UserEntity user, String comment) {
 		this.timeAdded = timeAdded;
 		this.user = user;
 		this.comment = comment;
@@ -24,11 +24,11 @@ public class CommentDto {
 		this.timeAdded = timeAdded;
 	}
 
-	public UserEntiti getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntiti user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 

@@ -5,15 +5,15 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.capgemini.jstk.boardGame.dto.ChallengeDto;
-import com.capgemini.jstk.boardGame.model.ChallengeEntiti;
+import com.capgemini.jstk.boardGame.repository.dto.ChallengeTo;
+import com.capgemini.jstk.boardGame.repository.entity.ChallengeEntity;
 
 @Component
 public class ChallengeMapper {
 
-	public ChallengeDto map(ChallengeEntiti challangeEntiti) {
+	public ChallengeTo map(ChallengeEntity challangeEntiti) {
 		if (challangeEntiti != null) {
-			return new ChallengeDto(challangeEntiti.getId(), challangeEntiti.getTimeCreated(),
+			return new ChallengeTo(challangeEntiti.getId(), challangeEntiti.getTimeCreated(),
 					challangeEntiti.getInitializeUser(), challangeEntiti.getUsers(), challangeEntiti.getConfirmMap(),
 					challangeEntiti.getProposedtime(), challangeEntiti.isGamePlayed(), challangeEntiti.getScoreMap(),
 					challangeEntiti.getInvestMessage(), challangeEntiti.getPlaceToPlay(), challangeEntiti.getGame(),
@@ -22,9 +22,9 @@ public class ChallengeMapper {
 		return null;
 	}
 
-	public ChallengeEntiti map(ChallengeDto challangeDto) {
+	public ChallengeEntity map(ChallengeTo challangeDto) {
 		if (challangeDto != null) {
-			return new ChallengeEntiti(challangeDto.getId(), challangeDto.getTimeCreated(),
+			return new ChallengeEntity(challangeDto.getId(), challangeDto.getTimeCreated(),
 					challangeDto.getInitializeUser(), challangeDto.getUsers(), challangeDto.getConfirmMap(),
 					challangeDto.getProposedtime(), challangeDto.isGamePlayed(), challangeDto.getScoreMap(),
 					challangeDto.getInvestMessage(), challangeDto.getPlaceToPlay(), challangeDto.getGame(),
@@ -33,12 +33,12 @@ public class ChallengeMapper {
 		return null;
 	}
 
-	public Set<ChallengeDto> map2To(Set<ChallengeEntiti> challangeEntiti) {
-		return challangeEntiti.stream().map(new ChallengeMapper()::map).collect(Collectors.toSet());
+	public Set<ChallengeTo> map2To(Set<ChallengeEntity> challangeEntiti) {
+		return challangeEntiti.stream().map(this::map).collect(Collectors.toSet());
 	}
 
-	public Set<ChallengeEntiti> map2Entity(Set<ChallengeDto> challangeDto) {
-		return challangeDto.stream().map(new ChallengeMapper()::map).collect(Collectors.toSet());
+	public Set<ChallengeEntity> map2Entity(Set<ChallengeTo> challangeDto) {
+		return challangeDto.stream().map(this::map).collect(Collectors.toSet());
 	}
 
 }

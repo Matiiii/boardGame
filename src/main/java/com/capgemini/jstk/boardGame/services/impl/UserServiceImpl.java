@@ -6,20 +6,22 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.jstk.boardGame.dao.UserDaoInterface;
-import com.capgemini.jstk.boardGame.dto.AvalibleTimeDto;
-import com.capgemini.jstk.boardGame.dto.GameDto;
-import com.capgemini.jstk.boardGame.dto.UserDto;
+import com.capgemini.jstk.boardGame.exceptions.UserNotExistException;
 import com.capgemini.jstk.boardGame.mapper.AvalibleTimeMapper;
 import com.capgemini.jstk.boardGame.mapper.GameMapper;
 import com.capgemini.jstk.boardGame.mapper.UserMapper;
-import com.capgemini.jstk.boardGame.model.UserEntiti;
-import com.capgemini.jstk.boardGame.services.UserServiceInterface;
+import com.capgemini.jstk.boardGame.repository.dao.UserDao;
+import com.capgemini.jstk.boardGame.repository.dto.AvailableTimeTo;
+import com.capgemini.jstk.boardGame.repository.dto.GameTo;
+import com.capgemini.jstk.boardGame.repository.dto.UserSearchTo;
+import com.capgemini.jstk.boardGame.repository.dto.UserTo;
+import com.capgemini.jstk.boardGame.repository.entity.UserEntity;
+import com.capgemini.jstk.boardGame.services.UserService;
 
 @Service
-public class UserServiceImpl implements UserServiceInterface {
+public class UserServiceImpl implements UserService {
 
-	private UserDaoInterface userDao;
+	private UserDao userDao;
 
 	private UserMapper userMapper;
 
@@ -28,7 +30,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	private AvalibleTimeMapper avalibleTimeMapper;
 
 	@Autowired
-	public UserServiceImpl(UserDaoInterface userDao, UserMapper userMapper, GameMapper gameMapper,
+	public UserServiceImpl(UserDao userDao, UserMapper userMapper, GameMapper gameMapper,
 			AvalibleTimeMapper avalibleTimeMapper) {
 		this.userDao = userDao;
 		this.userMapper = userMapper;
@@ -37,32 +39,62 @@ public class UserServiceImpl implements UserServiceInterface {
 	}
 
 	@Override
-	public Set<UserDto> findUsersByBasicInformation(String string) {
-		Set<UserEntiti> lista = new HashSet<>();
-		lista = userDao.getUserByUserName(string);
+	public Set<UserTo> findUsersByBasicInformation(String string) throws UserNotExistException {
+		Set<UserEntity> lista = new HashSet<>();
+		try {
+			lista.add(userDao.getUserByUserName(string));
 
-		lista.addAll(userDao.getUserByUserEmail(string));
+			lista.add(userDao.getUserByUserEmail(string));
+		} catch (Exception e) {
 
-		return userMapper.map2To(userDao.getUserByUserName(string));
+		}
+
+		return userMapper.map2To(lista);
 	}
 
 	@Override
-	public Set<UserDto> findUsersByGame(GameDto game) {
+	public Set<UserTo> findUsersByGame(GameTo game) {
 
 		return userMapper.map2To(userDao.getUsersByGame(gameMapper.map(game)));
 	}
 
 	@Override
-	public Set<UserDto> findUserSByAvalibleTime(AvalibleTimeDto time) {
+	public Set<UserTo> findUsersByAvailableTime(AvailableTimeTo time) {
 
-		return userMapper.map2To(userDao.getUserByAvalible(avalibleTimeMapper.map(time)));
+		return userMapper.map2To(userDao.getUsersByAvailable(avalibleTimeMapper.map(time)));
 	}
 
 	@Override
-	public void addUser(UserDto user) {
+	public void addUser(UserTo user) {
 
 		userDao.addUser(userMapper.map(user));
 
+	}
+
+	@Override
+	public UserTo getUserByName(String nickname) throws UserNotExistException {
+
+		UserEntity userEntity = userDao.getUserByUserName(nickname);
+
+		return userMapper.map(userEntity);
+
+	}
+
+	@Override
+	public Set<UserTo> findUsersByCriteria(UserSearchTo userSearchTo) {
+
+		Set<UserEntity> usersByCity = userDao.getUsersByCity(userSearchTo.getCity());
+		Set<UserEntity> usersByGame = userDao.getUsersByGame(gameMapper.map(userSearchTo.getGames()));
+		Set<UserEntity> usersByAvailable = userDao
+				.getUsersByAvailable(avalibleTimeMapper.map(userSearchTo.getAvailables()));
+
+		Set<UserEntity> filteredListEntity = usersByCity;
+		filteredListEntity.retainAll(usersByGame);
+		filteredListEntity.retainAll(usersByAvailable);
+
+		Set<UserTo> fiteredListTo = userMapper.map2To(filteredListEntity);
+
+		return fiteredListTo;
 	}
 
 }

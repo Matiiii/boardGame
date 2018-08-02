@@ -5,21 +5,22 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.jstk.boardGame.dao.ChallengeDaoInterface;
-import com.capgemini.jstk.boardGame.dto.AcceptationDto;
-import com.capgemini.jstk.boardGame.dto.ChallengeDto;
-import com.capgemini.jstk.boardGame.dto.CommentDto;
-import com.capgemini.jstk.boardGame.dto.UserDto;
+import com.capgemini.jstk.boardGame.exceptions.NotExistChallengeException;
 import com.capgemini.jstk.boardGame.mapper.AcceptationMapper;
 import com.capgemini.jstk.boardGame.mapper.ChallengeMapper;
 import com.capgemini.jstk.boardGame.mapper.CommentMapper;
 import com.capgemini.jstk.boardGame.mapper.UserMapper;
-import com.capgemini.jstk.boardGame.services.ChallengeServiceInterface;
+import com.capgemini.jstk.boardGame.repository.dao.ChallengeDao;
+import com.capgemini.jstk.boardGame.repository.dto.AcceptationTo;
+import com.capgemini.jstk.boardGame.repository.dto.ChallengeTo;
+import com.capgemini.jstk.boardGame.repository.dto.CommentTo;
+import com.capgemini.jstk.boardGame.repository.dto.UserTo;
+import com.capgemini.jstk.boardGame.services.ChallengeService;
 
 @Service
-public class ChallengeServiceImpl implements ChallengeServiceInterface {
+public class ChallengeServiceImpl implements ChallengeService {
 
-	private ChallengeDaoInterface challengeDao;
+	private ChallengeDao challengeDao;
 
 	private ChallengeMapper challengeMaper;
 
@@ -30,8 +31,8 @@ public class ChallengeServiceImpl implements ChallengeServiceInterface {
 	private AcceptationMapper acceptationMapper;
 
 	@Autowired
-	public ChallengeServiceImpl(ChallengeDaoInterface challengeDao, ChallengeMapper challengeMaper,
-			UserMapper userMapper, CommentMapper commentMapper, AcceptationMapper acceptationMapper) {
+	public ChallengeServiceImpl(ChallengeDao challengeDao, ChallengeMapper challengeMaper, UserMapper userMapper,
+			CommentMapper commentMapper, AcceptationMapper acceptationMapper) {
 		this.challengeDao = challengeDao;
 		this.challengeMaper = challengeMaper;
 		this.userMapper = userMapper;
@@ -40,39 +41,41 @@ public class ChallengeServiceImpl implements ChallengeServiceInterface {
 	}
 
 	@Override
-	public Set<ChallengeDto> findChallangesByUserFromUser(UserDto user) {
+	public Set<ChallengeTo> findChallangesByUserFromUser(UserTo user) {
 
 		return challengeMaper.map2To(challengeDao.findChallengesByUserFromUser(userMapper.map(user)));
 	}
 
 	@Override
-	public Set<ChallengeDto> findChallangesByUserFromSystem(UserDto user) {
+	public Set<ChallengeTo> findChallangesByUserFromSystem(UserTo user) {
 
 		return challengeMaper.map2To(challengeDao.findChallengesByUserFromSystem(userMapper.map(user)));
 	}
 
 	@Override
-	public Set<ChallengeDto> findChallangerByUserFromOtherUsers(UserDto user) {
+	public Set<ChallengeTo> findChallangerByUserFromOtherUsers(UserTo user) {
 
 		return challengeMaper.map2To(challengeDao.findChallengesByUserFromOtherUsers(userMapper.map(user)));
 	}
 
 	@Override
-	public void updateChalange(ChallengeDto challange) {
+	public void updateChalange(ChallengeTo challange) throws NotExistChallengeException {
 
 		challengeDao.updateChallenge(challengeMaper.map(challange));
 
 	}
 
 	@Override
-	public void addCommentToChalange(UserDto user, ChallengeDto challange, CommentDto comment) {
+	public void addCommentToChalange(UserTo user, ChallengeTo challange, CommentTo comment)
+			throws NotExistChallengeException {
 
 		challengeDao.addCommentToChallange(challengeMaper.map(challange), commentMapper.map(comment));
 
 	}
 
 	@Override
-	public void confirmChalange(UserDto user, ChallengeDto challenge, AcceptationDto acceptation) {
+	public void confirmChalange(UserTo user, ChallengeTo challenge, AcceptationTo acceptation)
+			throws NotExistChallengeException {
 
 		challengeDao.confirmChallenge(userMapper.map(user), challengeMaper.map(challenge),
 				acceptationMapper.map(acceptation));
@@ -80,19 +83,19 @@ public class ChallengeServiceImpl implements ChallengeServiceInterface {
 	}
 
 	@Override
-	public boolean isCanStartGame(ChallengeDto challenge) {
+	public boolean isCanStartGame(ChallengeTo challenge) {
 
 		return false;
 	}
 
 	@Override
-	public void createNewChallenge(ChallengeDto challenge) {
+	public void createNewChallenge(ChallengeTo challenge) {
 		challengeDao.addChallenge(challengeMaper.map(challenge));
 
 	}
 
 	@Override
-	public Set<ChallengeDto> findAllAcceptedChallangesByUser(UserDto user) {
+	public Set<ChallengeTo> findAllAcceptedChallangesByUser(UserTo user) {
 
 		return challengeMaper.map2To(challengeDao.findAcceptedChallengesByUser(userMapper.map(user)));
 	}

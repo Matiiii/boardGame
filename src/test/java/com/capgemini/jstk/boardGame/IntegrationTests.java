@@ -13,12 +13,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.capgemini.jstk.boardGame.dao.impl.ChallengeDaoImpl;
-import com.capgemini.jstk.boardGame.dto.AvalibleTimeDto;
+import com.capgemini.jstk.boardGame.exceptions.NotExistChallengeException;
+import com.capgemini.jstk.boardGame.exceptions.UserNotExistException;
 import com.capgemini.jstk.boardGame.mapper.GameMapper;
 import com.capgemini.jstk.boardGame.mapper.UserMapper;
-import com.capgemini.jstk.boardGame.services.ChallengeServiceInterface;
-import com.capgemini.jstk.boardGame.services.UserServiceInterface;
+import com.capgemini.jstk.boardGame.repository.dao.impl.ChallengeDaoImpl;
+import com.capgemini.jstk.boardGame.repository.dto.AvailableTimeTo;
+import com.capgemini.jstk.boardGame.services.ChallengeService;
+import com.capgemini.jstk.boardGame.services.UserService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,13 +41,13 @@ public class IntegrationTests {
 	ChallengeDaoImpl challengeDaoImpl;
 
 	@Autowired
-	private ChallengeServiceInterface challengeService;
+	private ChallengeService challengeService;
 
 	@Autowired
-	private UserServiceInterface userService;
+	private UserService userService;
 
 	@Test
-	public void schouldGetUser() {
+	public void schouldGetUser() throws UserNotExistException {
 
 		assertTrue(
 				userService.findUsersByBasicInformation("Mati").stream().anyMatch(x -> x.getUserName().equals("Mati")));
@@ -53,11 +55,10 @@ public class IntegrationTests {
 	}
 
 	@Test
-	public void schouldAddUser() {
+	public void schouldAddUser() throws UserNotExistException {
 		userService.addUser(mockdata.user6Dto);
 
-		assertTrue(userService.findUsersByBasicInformation("Mariusz").stream()
-				.anyMatch(x -> x.getUserName().equals("Mariusz")));
+		assertEquals("Mariusz", userService.getUserByName("Mariusz").getUserName());
 
 	}
 
@@ -68,13 +69,13 @@ public class IntegrationTests {
 
 	@Test
 	public void schouldGiveListOf2AvalibleUsers() {
-		assertEquals(2, userService.findUserSByAvalibleTime(
-				new AvalibleTimeDto(Instant.parse("2018-08-25T12:15:30.00Z"), Instant.parse("2018-08-25T15:15:30.00Z")))
+		assertEquals(2, userService.findUsersByAvailableTime(
+				new AvailableTimeTo(Instant.parse("2018-08-25T12:15:30.00Z"), Instant.parse("2018-08-25T15:15:30.00Z")))
 				.size());
 	}
 
 	@Test
-	public void schouldAddAcceptationToChallange() {
+	public void schouldAddAcceptationToChallange() throws NotExistChallengeException {
 		challengeService.confirmChalange(userMapper.map(mockdata.user1), mockdata.challengeDto1,
 				mockdata.acceptationDto1);
 

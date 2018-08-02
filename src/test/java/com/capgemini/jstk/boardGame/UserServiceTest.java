@@ -17,14 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.capgemini.jstk.boardGame.dao.impl.UserDaoImpl;
-import com.capgemini.jstk.boardGame.dto.UserDto;
+import com.capgemini.jstk.boardGame.exceptions.UserNotExistException;
 import com.capgemini.jstk.boardGame.mapper.AvalibleTimeMapper;
 import com.capgemini.jstk.boardGame.mapper.GameMapper;
 import com.capgemini.jstk.boardGame.mapper.UserMapper;
-import com.capgemini.jstk.boardGame.model.AvalibleTimeEntiti;
-import com.capgemini.jstk.boardGame.model.GameEntiti;
-import com.capgemini.jstk.boardGame.model.UserEntiti;
+import com.capgemini.jstk.boardGame.repository.dao.impl.UserDaoImpl;
+import com.capgemini.jstk.boardGame.repository.dto.UserTo;
+import com.capgemini.jstk.boardGame.repository.entity.AvailableTimeEntity;
+import com.capgemini.jstk.boardGame.repository.entity.GameEntity;
+import com.capgemini.jstk.boardGame.repository.entity.UserEntity;
 import com.capgemini.jstk.boardGame.services.impl.UserServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -50,29 +51,30 @@ public class UserServiceTest {
 	UserDaoImpl userDao;
 
 	@Before
-	public void setUp() {
-		Set<UserEntiti> entitiSet = new HashSet<>();
-		Set<UserEntiti> entitiSet2 = new HashSet<>();
-		UserEntiti user5 = mockdata.user5;
-		UserEntiti user4 = mockdata.user4;
-		Set<UserDto> dtoSet = new HashSet<>();
-		UserDto user6 = mockdata.user6Dto;
+	public void setUp() throws UserNotExistException {
+		Set<UserEntity> entitiSet = new HashSet<>();
+		Set<UserEntity> entitiSet2 = new HashSet<>();
+		UserEntity user5 = mockdata.user5;
+		UserEntity user4 = mockdata.user4;
+		Set<UserTo> dtoSet = new HashSet<>();
+		UserTo user6 = mockdata.user6Dto;
 		dtoSet.add(user6);
 		entitiSet.add(user5);
+		entitiSet.add(user4);
 		entitiSet2.add(user4);
 
-		Mockito.when(userDao.getUserByUserName(Mockito.anyString())).thenReturn(entitiSet);
+		Mockito.when(userDao.getUserByUserName(Mockito.anyString())).thenReturn(user5);
 
-		Mockito.when(userDao.getUsersByGame(Mockito.any(GameEntiti.class))).thenReturn(entitiSet);
+		Mockito.when(userDao.getUsersByGame(Mockito.any(GameEntity.class))).thenReturn(entitiSet);
 
-		Mockito.when(userDao.getUserByUserEmail(Mockito.anyString())).thenReturn(entitiSet2);
+		Mockito.when(userDao.getUserByUserEmail(Mockito.anyString())).thenReturn(user4);
 
-		Mockito.when(userDao.getUserByAvalible(Mockito.any(AvalibleTimeEntiti.class))).thenReturn(entitiSet);
+		Mockito.when(userDao.getUsersByAvailable(Mockito.any(AvailableTimeEntity.class))).thenReturn(entitiSet);
 
 	}
 
 	@Test
-	public void shouldReturnCorrectPlayer() {
+	public void shouldReturnCorrectPlayer() throws UserNotExistException {
 
 		// given
 		// when
@@ -113,10 +115,10 @@ public class UserServiceTest {
 	@Test
 	public void shouldReturnCorrectPlayer3() {
 
-		assertTrue(userService.findUserSByAvalibleTime(mockdata.timeDto1).stream()
+		assertTrue(userService.findUsersByAvailableTime(mockdata.timeDto1).stream()
 				.anyMatch(x -> x.getUserName().equals("Bohdan")));
 
-		assertFalse(userService.findUserSByAvalibleTime(mockdata.timeDto1).stream()
+		assertFalse(userService.findUsersByAvailableTime(mockdata.timeDto1).stream()
 				.anyMatch(x -> x.getEmail().equals("Mariusz@mariusz.pl")));
 
 	}
@@ -126,9 +128,9 @@ public class UserServiceTest {
 		// given
 
 		// when
-		userService.findUserSByAvalibleTime(mockdata.timeDto1);
+		userService.findUsersByAvailableTime(mockdata.timeDto1);
 		// then
-		Mockito.verify(userDao).getUserByAvalible(Mockito.any());
+		Mockito.verify(userDao).getUsersByAvailable(Mockito.any());
 	}
 
 }

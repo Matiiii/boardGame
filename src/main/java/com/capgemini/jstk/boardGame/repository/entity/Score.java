@@ -1,4 +1,4 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.repository.entity;
 
 public enum Score {
 	WIN(10L), LOST(-5L), DRAW(5L), ESCAPE(-10L);

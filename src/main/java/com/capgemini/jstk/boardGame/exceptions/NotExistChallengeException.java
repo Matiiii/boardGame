@@ -1,6 +1,6 @@
 package com.capgemini.jstk.boardGame.exceptions;
 
-public class NotExistChallengeException extends RuntimeException {
+public class NotExistChallengeException extends Exception {
 
 	/**
 	 * 

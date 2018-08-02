@@ -5,34 +5,34 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.capgemini.jstk.boardGame.dto.UserDto;
-import com.capgemini.jstk.boardGame.model.UserEntiti;
+import com.capgemini.jstk.boardGame.repository.dto.UserTo;
+import com.capgemini.jstk.boardGame.repository.entity.UserEntity;
 
 @Component
 public class UserMapper {
 
-	public UserDto map(UserEntiti userEntiti) {
+	public UserTo map(UserEntity userEntiti) {
 		if (userEntiti != null) {
-			return new UserDto(userEntiti.getUserName(), userEntiti.getPassword(), userEntiti.getEmail(),
-					userEntiti.getOwnGames(), userEntiti.getAvalible());
+			return new UserTo(userEntiti.getUserName(), userEntiti.getPassword(), userEntiti.getEmail(),
+					userEntiti.getCity(), userEntiti.getOwnGames(), userEntiti.getAvailable());
 		}
 		return null;
 	}
 
-	public UserEntiti map(UserDto userDto) {
+	public UserEntity map(UserTo userDto) {
 		if (userDto != null) {
-			return new UserEntiti(userDto.getUserName(), userDto.getPassword(), userDto.getEmail(),
-					userDto.getOwnGames(), userDto.getAvalible());
+			return new UserEntity(userDto.getUserName(), userDto.getPassword(), userDto.getEmail(), userDto.getCity(),
+					userDto.getOwnGames(), userDto.getAvailable());
 		}
 		return null;
 	}
 
-	public Set<UserDto> map2To(Set<UserEntiti> userEntiti) {
-		return userEntiti.stream().map(new UserMapper()::map).collect(Collectors.toSet());
+	public Set<UserTo> map2To(Set<UserEntity> userEntiti) {
+		return userEntiti.stream().map(this::map).collect(Collectors.toSet());
 	}
 
-	public Set<UserEntiti> map2Entity(Set<UserDto> userDto) {
-		return userDto.stream().map(new UserMapper()::map).collect(Collectors.toSet());
+	public Set<UserEntity> map2Entity(Set<UserTo> userDto) {
+		return userDto.stream().map(this::map).collect(Collectors.toSet());
 	}
 
 }

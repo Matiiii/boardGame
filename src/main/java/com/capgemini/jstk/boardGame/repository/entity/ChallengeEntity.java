@@ -1,32 +1,32 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.repository.entity;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ChallengeEntiti {
+public class ChallengeEntity {
 
 	private Long id;
 	private Instant timeCreated;
-	private UserEntiti initializeUser;
-	private Set<UserEntiti> users;
-	private Map<String, AcceptationEntiti> confirmMap;
-	private AvalibleTimeEntiti proposedtime;
+	private UserEntity initializeUser;
+	private Set<UserEntity> users;
+	private Map<String, AcceptationEntity> confirmMap;
+	private AvailableTimeEntity proposedtime;
 	private boolean isGamePlayed;
-	private Map<UserEntiti, Long> scoreMap;
+	private Map<UserEntity, Long> scoreMap;
 	private String investMessage;
 	private String placeToPlay;
-	private GameEntiti game;
-	private List<CommentEntiti> commentList;
+	private GameEntity game;
+	private List<CommentEntity> commentList;
 
-	public ChallengeEntiti() {
+	public ChallengeEntity() {
 	}
 
-	public ChallengeEntiti(Long id, Instant timeCreated, UserEntiti initializeUser, Set<UserEntiti> users,
-			Map<String, AcceptationEntiti> map, AvalibleTimeEntiti proposedtime, boolean isGamePlayed,
-			Map<UserEntiti, Long> scoreMap, String investMessage, String placeToPlay, GameEntiti game,
-			List<CommentEntiti> commentList) {
+	public ChallengeEntity(Long id, Instant timeCreated, UserEntity initializeUser, Set<UserEntity> users,
+			Map<String, AcceptationEntity> map, AvailableTimeEntity proposedtime, boolean isGamePlayed,
+			Map<UserEntity, Long> scoreMap, String investMessage, String placeToPlay, GameEntity game,
+			List<CommentEntity> commentList) {
 		this.id = id;
 		this.timeCreated = timeCreated;
 		this.initializeUser = initializeUser;
@@ -57,35 +57,35 @@ public class ChallengeEntiti {
 		this.timeCreated = timeCreated;
 	}
 
-	public UserEntiti getInitializeUser() {
+	public UserEntity getInitializeUser() {
 		return initializeUser;
 	}
 
-	public void setInitializeUser(UserEntiti initializeUser) {
+	public void setInitializeUser(UserEntity initializeUser) {
 		this.initializeUser = initializeUser;
 	}
 
-	public Set<UserEntiti> getUsers() {
+	public Set<UserEntity> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<UserEntiti> users) {
+	public void setUsers(Set<UserEntity> users) {
 		this.users = users;
 	}
 
-	public Map<String, AcceptationEntiti> getConfirmMap() {
+	public Map<String, AcceptationEntity> getConfirmMap() {
 		return confirmMap;
 	}
 
-	public void setConfirmMap(Map<String, AcceptationEntiti> confirmMap) {
+	public void setConfirmMap(Map<String, AcceptationEntity> confirmMap) {
 		this.confirmMap = confirmMap;
 	}
 
-	public AvalibleTimeEntiti getProposedtime() {
+	public AvailableTimeEntity getProposedtime() {
 		return proposedtime;
 	}
 
-	public void setProposedtime(AvalibleTimeEntiti proposedtime) {
+	public void setProposedtime(AvailableTimeEntity proposedtime) {
 		this.proposedtime = proposedtime;
 	}
 
@@ -97,11 +97,11 @@ public class ChallengeEntiti {
 		this.isGamePlayed = isGamePlayed;
 	}
 
-	public Map<UserEntiti, Long> getScoreMap() {
+	public Map<UserEntity, Long> getScoreMap() {
 		return scoreMap;
 	}
 
-	public void setScoreMap(Map<UserEntiti, Long> scoreMap) {
+	public void setScoreMap(Map<UserEntity, Long> scoreMap) {
 		this.scoreMap = scoreMap;
 	}
 
@@ -121,19 +121,19 @@ public class ChallengeEntiti {
 		this.placeToPlay = placeToPlay;
 	}
 
-	public GameEntiti getGame() {
+	public GameEntity getGame() {
 		return game;
 	}
 
-	public void setGame(GameEntiti game) {
+	public void setGame(GameEntity game) {
 		this.game = game;
 	}
 
-	public List<CommentEntiti> getCommentList() {
+	public List<CommentEntity> getCommentList() {
 		return commentList;
 	}
 
-	public void setCommentList(List<CommentEntiti> commentList) {
+	public void setCommentList(List<CommentEntity> commentList) {
 		this.commentList = commentList;
 	}
 

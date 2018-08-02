@@ -5,32 +5,32 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.capgemini.jstk.boardGame.dto.AvalibleTimeDto;
-import com.capgemini.jstk.boardGame.model.AvalibleTimeEntiti;
+import com.capgemini.jstk.boardGame.repository.dto.AvailableTimeTo;
+import com.capgemini.jstk.boardGame.repository.entity.AvailableTimeEntity;
 
 @Component
 public class AvalibleTimeMapper {
 
-	public AvalibleTimeDto map(AvalibleTimeEntiti avalibleTimeEntiti) {
+	public AvailableTimeTo map(AvailableTimeEntity avalibleTimeEntiti) {
 		if (avalibleTimeEntiti != null) {
-			return new AvalibleTimeDto(avalibleTimeEntiti.getTimeStart(), avalibleTimeEntiti.getTimeStop());
+			return new AvailableTimeTo(avalibleTimeEntiti.getTimeStart(), avalibleTimeEntiti.getTimeStop());
 		}
 		return null;
 	}
 
-	public AvalibleTimeEntiti map(AvalibleTimeDto avalibleTimeDto) {
+	public AvailableTimeEntity map(AvailableTimeTo avalibleTimeDto) {
 		if (avalibleTimeDto != null) {
-			return new AvalibleTimeEntiti(avalibleTimeDto.getTimeStart(), avalibleTimeDto.getTimeStop());
+			return new AvailableTimeEntity(avalibleTimeDto.getTimeStart(), avalibleTimeDto.getTimeStop());
 		}
 		return null;
 	}
 
-	public Set<AvalibleTimeDto> map2To(Set<AvalibleTimeEntiti> avalibleTimeEntiti) {
-		return avalibleTimeEntiti.stream().map(new AvalibleTimeMapper()::map).collect(Collectors.toSet());
+	public Set<AvailableTimeTo> map2To(Set<AvailableTimeEntity> avalibleTimeEntiti) {
+		return avalibleTimeEntiti.stream().map(this::map).collect(Collectors.toSet());
 	}
 
-	public Set<AvalibleTimeEntiti> map2Entity(Set<AvalibleTimeDto> avalibleTimeDto) {
-		return avalibleTimeDto.stream().map(new AvalibleTimeMapper()::map).collect(Collectors.toSet());
+	public Set<AvailableTimeEntity> map2Entity(Set<AvailableTimeTo> avalibleTimeDto) {
+		return avalibleTimeDto.stream().map(this::map).collect(Collectors.toSet());
 	}
 
 }

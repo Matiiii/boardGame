@@ -1,15 +1,15 @@
-package com.capgemini.jstk.boardGame.dto;
+package com.capgemini.jstk.boardGame.repository.dto;
 
-public class GameDto {
-	String gameName;
+public class GameTo {
+	private String gameName;
 
 	int minialPlayers;
 	int maximalPlayers;
 
-	public GameDto() {
+	public GameTo() {
 	}
 
-	public GameDto(String gameName, int minialPlayers, int maximalPlayers) {
+	public GameTo(String gameName, int minialPlayers, int maximalPlayers) {
 		this.gameName = gameName;
 		this.minialPlayers = minialPlayers;
 		this.maximalPlayers = maximalPlayers;

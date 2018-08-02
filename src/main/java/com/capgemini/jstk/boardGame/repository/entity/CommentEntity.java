@@ -1,14 +1,14 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.repository.entity;
 
 import java.time.Instant;
 
-public class CommentEntiti {
+public class CommentEntity {
 
 	private Instant timeAdded;
-	private UserEntiti user;
+	private UserEntity user;
 	private String comment;
 
-	public CommentEntiti(Instant timeAdded, UserEntiti user, String comment) {
+	public CommentEntity(Instant timeAdded, UserEntity user, String comment) {
 		this.timeAdded = timeAdded;
 		this.user = user;
 		this.comment = comment;
@@ -22,11 +22,11 @@ public class CommentEntiti {
 		this.timeAdded = timeAdded;
 	}
 
-	public UserEntiti getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntiti user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 

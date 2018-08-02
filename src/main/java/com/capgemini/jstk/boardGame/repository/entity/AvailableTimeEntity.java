@@ -1,17 +1,17 @@
-package com.capgemini.jstk.boardGame.model;
+package com.capgemini.jstk.boardGame.repository.entity;
 
 import java.time.Instant;
 
-public class AvalibleTimeEntiti {
+public class AvailableTimeEntity {
 
-	Instant timeStart;
-	Instant timeStop;
+	private Instant timeStart;
+	private Instant timeStop;
 
-	public AvalibleTimeEntiti() {
+	public AvailableTimeEntity() {
 		super();
 	}
 
-	public AvalibleTimeEntiti(Instant timeStart, Instant timeStop) {
+	public AvailableTimeEntity(Instant timeStart, Instant timeStop) {
 		super();
 		this.timeStart = timeStart;
 		this.timeStop = timeStop;

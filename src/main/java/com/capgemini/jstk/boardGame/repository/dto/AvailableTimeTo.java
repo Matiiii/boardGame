@@ -1,19 +1,19 @@
-package com.capgemini.jstk.boardGame.dto;
+package com.capgemini.jstk.boardGame.repository.dto;
 
 import java.time.Instant;
 
-public class AvalibleTimeDto {
+public class AvailableTimeTo {
 
-	Instant timeStart;
-	Instant timeStop;
+	private Instant timeStart;
+	private Instant timeStop;
 
-	public AvalibleTimeDto(Instant timeStart, Instant timeStop) {
+	public AvailableTimeTo(Instant timeStart, Instant timeStop) {
 		super();
 		this.timeStart = timeStart;
 		this.timeStop = timeStop;
 	}
 
-	public AvalibleTimeDto() {
+	public AvailableTimeTo() {
 		super();
 	}
 
